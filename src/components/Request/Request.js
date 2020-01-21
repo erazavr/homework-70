@@ -1,10 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect,Fragment} from 'react';
 import axios from 'axios'
 import './Request.css'
 import {NavLink} from "react-router-dom";
 const Request = () => {
     const [tvShows, setTvShows] = useState({});
     const [tvShow, setTvShow] = useState('');
+    const [isHiden, setIsHiden] = useState(false)
+
     const valueChanged = event => {
         setTvShow(event.target.value)
     };
@@ -17,16 +19,29 @@ const Request = () => {
         };
         fetchData();
     },[tvShow]);
+    const hidenOn = () => {
+        setIsHiden(true)
+    };
+    const hidenOff = () => {
+        setIsHiden(false)
+    };
     return (
-        <div className='main-block'>
-            <label htmlFor='input' className='label'>Search for TV Show:</label>
-            <input type="text" id='input' className='field' onChange={valueChanged}/>
-            {tvShows &&
+        <Fragment>
+            <div className='main-block' onClick={hidenOn}>
+                <label htmlFor='input' className='label'>Search for TV Show:</label>
+                <input type="text" id='input' className='field' onChange={valueChanged}/>
+            </div>
+
+            {isHiden &&
             Object.keys(tvShows).map(show => (
-                <NavLink key={show} to={`/shows/${tvShows[show].show.id}`} className='showName'>{tvShows[show].show.name}</NavLink>
-            ))
+                    <div key={show}  onClick={hidenOff} className='div'>
+                    <NavLink   to={`/shows/${tvShows[show].show.id}`} className='showName'>{tvShows[show].show.name}</NavLink>
+                    </div>
+                        ))
             }
-        </div>
+        </Fragment>
+
+
     );
 };
 
