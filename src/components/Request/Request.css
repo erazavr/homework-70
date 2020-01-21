@@ -13,4 +13,16 @@
     height: 40px;
     font-size: 25px;
 }
+.showName {
+    text-decoration: none;
+    color: black;
+    display: inherit;
+    text-align: center;
+    border: 2px solid;
+    width: 370px;
+    margin: 10px auto 10px;
+    padding: 5px 0;
+}
+.div {
 
+}
